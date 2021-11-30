@@ -35,6 +35,10 @@ app.use(signup);
 const signin = require("./routes/SignIn");
 app.use(signin);
 
+// route "favorite/:id"
+const favorite = require("./routes/Favorite");
+app.use(favorite);
+
 // app.all("*", () => {
 //   console.log("All route")
 // })
