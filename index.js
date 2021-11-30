@@ -43,6 +43,10 @@ app.use(favorite);
 const review = require("./routes/Review");
 app.use(review);
 
+// route "/search"
+const search = require("./routes/Search");
+app.use(search);
+
 app.all("*", () => {
   console.log("All route");
 });
