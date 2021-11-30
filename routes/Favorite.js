@@ -15,7 +15,6 @@ router.post("/favorite/:id", isAuthenticated, async (req, res) => {
       const favoriteGame = await axios.get(
         `https://api.rawg.io/api/games/${req.params.id}?key=${process.env.API_KEY}`
       );
-      console.log(favoriteGame.data);
 
       if (favoriteGame) {
         const newFavorite = new Favorite({
@@ -35,7 +34,6 @@ router.post("/favorite/:id", isAuthenticated, async (req, res) => {
         res.status(400).json({ error: "Game not found." });
       }
     } else {
-      console.log(isInFavorite);
       res.status(400).json({ error: "This favorite already exist." });
     }
   } catch (error) {
