@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 const router = express.Router();
 const isAuthenticated = require("../middleware/isAuthenticated");
-const { x64 } = require("crypto-js");
 
 router.post("/favorite/:id", isAuthenticated, async (req, res) => {
   try {
@@ -16,13 +15,13 @@ router.post("/favorite/:id", isAuthenticated, async (req, res) => {
       const favoriteGame = await axios.get(
         `https://api.rawg.io/api/games/${req.params.id}?key=${process.env.API_KEY}`
       );
-      console.log(favoriteGame);
+      console.log(favoriteGame.data);
 
       if (favoriteGame) {
-        const newFavorite = await Favorite({
-          favoriteId: favoriteGame.id,
-          title: favoriteGame.name_original,
-          picture: favoriteGame.background_image,
+        const newFavorite = new Favorite({
+          favoriteId: favoriteGame.data.id,
+          title: favoriteGame.data.name_original,
+          picture: favoriteGame.data.background_image,
           user: req.user,
         });
         const response = await newFavorite.save();
