@@ -39,9 +39,13 @@ app.use(signin);
 const favorite = require("./routes/Favorite");
 app.use(favorite);
 
-// app.all("*", () => {
-//   console.log("All route")
-// })
+// route "/review/:id"
+const review = require("./routes/Review");
+app.use(review);
+
+app.all("*", () => {
+  console.log("All route");
+});
 
 app.listen(process.env.PORT, () => {
   console.log("Server has started");
