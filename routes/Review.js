@@ -41,4 +41,27 @@ router.post("/review/:id", isAuthenticated, async (req, res) => {
   }
 });
 
+router.post("/review/delete/:id", isAuthenticated, async (req, res) => {
+  try {
+    console.log("route /review/delete/id");
+
+    const isReviewExist = await Review.findOne({
+      gameId: req.params.id,
+      user: req.user,
+    });
+
+    if (isReviewExist) {
+      const response = await Review.findOneAndDelete({
+        gameId: req.params.id,
+        user: req.user,
+      });
+      res.status(200).json({ message: "Review deleted" });
+    } else {
+      res.status(400).json({ error: "No such review." });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 module.exports = router;

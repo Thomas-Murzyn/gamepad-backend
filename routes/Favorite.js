@@ -38,4 +38,23 @@ router.post("/favorite/:id", isAuthenticated, async (req, res) => {
   }
 });
 
+router.post("/favorite/delete/:id", isAuthenticated, async (req, res) => {
+  try {
+    console.log("route /favorite/delete/id");
+
+    const isInFavorite = await Favorite.findOne({ favoriteId: req.params.id });
+
+    if (isInFavorite) {
+      const response = await Favorite.findOneAndDelete({
+        favoriteId: req.params.id,
+      });
+      res.status(200).json({ message: "Favorite deleted" });
+    } else {
+      res.status(400).json({ error: "No such favorite." });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 module.exports = router;
