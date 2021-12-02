@@ -16,4 +16,18 @@ router.get("/game/:id", async (req, res) => {
   }
 });
 
+router.get("/similar_game/:id", async (req, res) => {
+  try {
+    console.log("route /similar_game/:id");
+
+    const response = await axios.get(
+      `https://api.rawg.io/api/games/${req.params.id}/game-series?key=${process.env.API_KEY}`
+    );
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ message: error.message });
+  }
+});
+
 module.exports = router;
