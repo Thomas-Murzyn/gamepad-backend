@@ -24,7 +24,6 @@ router.post("/signup", async (req, res) => {
         const newUser = new User({
           mail: req.fields.mail,
           username: req.fields.username,
-          description: req.fields.description,
           age: req.fields.age,
           hash: hash,
           token: token,

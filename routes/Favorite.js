@@ -38,15 +38,52 @@ router.post("/favorite/:id", isAuthenticated, async (req, res) => {
   }
 });
 
+router.get("/favorite/get", isAuthenticated, async (req, res) => {
+  try {
+    console.log("route /favorite/get");
+    const getFavorites = await Favorite.find({ user: req.user }).populate(
+      "user"
+    );
+    if (getFavorites) {
+      res.status(200).json(getFavorites);
+    } else {
+      res.status(400).json({ message: "You dont have any favorite" });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get("/favorite/getOne/:id", isAuthenticated, async (req, res) => {
+  try {
+    console.log("route /favorite/getOne");
+    const isInFavorite = await Favorite.findOne({
+      favoriteId: req.params.id,
+      user: req.user,
+    });
+    if (isInFavorite) {
+      res.status(200).json({ value: true });
+    } else {
+      res.status(200).json({ value: false });
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 router.post("/favorite/delete/:id", isAuthenticated, async (req, res) => {
   try {
     console.log("route /favorite/delete/id");
 
-    const isInFavorite = await Favorite.findOne({ favoriteId: req.params.id });
+    const isInFavorite = await Favorite.findOne({
+      favoriteId: req.params.id,
+      user: req.user,
+    });
 
     if (isInFavorite) {
       const response = await Favorite.findOneAndDelete({
         favoriteId: req.params.id,
+        user: req.user,
       });
       res.status(200).json({ message: "Favorite deleted" });
     } else {
