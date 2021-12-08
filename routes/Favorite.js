@@ -8,7 +8,10 @@ const isAuthenticated = require("../middleware/isAuthenticated");
 router.post("/favorite/:id", isAuthenticated, async (req, res) => {
   console.log("route /favorite");
 
-  const isInFavorite = await Favorite.findOne({ favoriteId: req.params.id });
+  const isInFavorite = await Favorite.findOne({
+    favoriteId: req.params.id,
+    user: req.user,
+  });
 
   if (!isInFavorite) {
     console.log("here");

@@ -47,6 +47,10 @@ app.use(review);
 const search = require("./routes/Search");
 app.use(search);
 
+// route "/user_profil"
+const UserProfil = require("./routes/UserProfil");
+app.use(UserProfil);
+
 app.all("*", () => {
   console.log("All route");
 });

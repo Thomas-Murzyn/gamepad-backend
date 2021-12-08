@@ -68,7 +68,8 @@ router.post("/add_score_review/:id", async (req, res) => {
 
     if (review) {
       review.score = review.score + req.fields.score;
-      review.save();
+      await review.save();
+      res.status(200).json({ message: "succes" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -86,7 +87,8 @@ router.post("/less_score_review/:id", async (req, res) => {
 
     if (review) {
       review.score = review.score - req.fields.score;
-      review.save();
+      await review.save();
+      res.status(200).json({ message: "succes" });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
