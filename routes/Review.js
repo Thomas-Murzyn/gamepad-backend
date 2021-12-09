@@ -57,6 +57,20 @@ router.get("/get_review/:id", async (req, res) => {
   }
 });
 
+router.get("/my_review", isAuthenticated, async (req, res) => {
+  try {
+    console.log("route /my_review");
+
+    const reviews = await Review.find({ user: req.user }).populate("user");
+
+    if (reviews) {
+      res.status(200).json(reviews);
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 router.post("/add_score_review/:id", async (req, res) => {
   try {
     console.log("route /add_score_review/:id");
