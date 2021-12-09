@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
 
 const app = express();
+
 app.use(formidable());
 app.use(cors());
 
