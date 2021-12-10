@@ -7,7 +7,7 @@ const router = express.Router();
 const isAuthenticated = require("../middleware/isAuthenticated");
 const cloudinary = require("cloudinary").v2;
 
-router.get(`/user_profil`, isAuthenticated, async (req, res) => {
+router.get("/user_profil", isAuthenticated, async (req, res) => {
   try {
     console.log("route /user_profil");
 

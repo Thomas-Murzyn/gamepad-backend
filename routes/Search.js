@@ -2,15 +2,15 @@ const express = require("express");
 const axios = require("axios");
 const router = express.Router();
 
-router.get("/search", async (req, res) => {
+router.get("/search/:page", async (req, res) => {
   try {
     console.log("search /");
 
     if (req.query.platforms && req.query.genres) {
       const response = await axios.get(
-        `https://api.rawg.io/api/games?key=${
-          process.env.API_KEY
-        }&page=1&page_size=100&search=${
+        `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page=${
+          req.params.page
+        }&page_size=40&search=${
           req.query.title ? req.query.title : ""
         }&search_precise=${req.query.title ? true : false}&search_exact=${
           req.query.title ? true : false
@@ -22,9 +22,9 @@ router.get("/search", async (req, res) => {
       res.status(200).json(response.data);
     } else if (req.query.platforms) {
       const response = await axios.get(
-        `https://api.rawg.io/api/games?key=${
-          process.env.API_KEY
-        }&page=1&page_size=100&search=${
+        `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page=${
+          req.params.page
+        }&page_size=40&search=${
           req.query.title ? req.query.title : ""
         }&search_precise=${req.query.title ? true : false}&search_exact=${
           req.query.title ? true : false
@@ -36,9 +36,9 @@ router.get("/search", async (req, res) => {
       res.status(200).json(response.data);
     } else if (req.query.genres) {
       const response = await axios.get(
-        `https://api.rawg.io/api/games?key=${
-          process.env.API_KEY
-        }&page=1&page_size=100&search=${
+        `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page=${
+          req.params.page
+        }&page_size=40&search=${
           req.query.title ? req.query.title : ""
         }&search_precise=${req.query.title ? true : false}&search_exact=${
           req.query.title ? true : false
@@ -50,9 +50,9 @@ router.get("/search", async (req, res) => {
       res.status(200).json(response.data);
     } else {
       const response = await axios.get(
-        `https://api.rawg.io/api/games?key=${
-          process.env.API_KEY
-        }&page=1&page_size=100&search=${
+        `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page=${
+          req.params.page
+        }&page_size=40&search=${
           req.query.title ? req.query.title : ""
         }&ordering=${req.query.ordering ? req.query.ordering : ""}`
       );
