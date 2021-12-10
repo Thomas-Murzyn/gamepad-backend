@@ -18,7 +18,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-mongoose.connect("mongodb://localhost/Gamepad");
+mongoose.connect(process.env.MONGODB_URI);
 
 // route "/"
 const home = require("./routes/Home");
