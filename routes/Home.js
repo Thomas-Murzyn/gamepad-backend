@@ -2,7 +2,7 @@ const express = require("express");
 const axios = require("axios");
 const router = express.Router();
 
-router.get("/:page", async (req, res) => {
+router.get("/pagination/:page", async (req, res) => {
   try {
     console.log("route /");
 

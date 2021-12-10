@@ -17,7 +17,7 @@ router.get("/user_profil", isAuthenticated, async (req, res) => {
   }
 });
 
-router.post(`/user_profil_update`, isAuthenticated, async (req, res) => {
+router.post(`/user_profil/update`, isAuthenticated, async (req, res) => {
   try {
     console.log("route /user_profil_update");
 
